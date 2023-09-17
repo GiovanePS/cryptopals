@@ -3,10 +3,10 @@
 int hexCharToInt(char letter);
 char hexIntToChar(int number);
 
-int main(int argc, char* argv[]) {
+int main(void) {
 
-    std::string hexInput1 = argv[1];
-    std::string hexInput2 = argv[2];
+    std::string hexInput1 = "1c0111001f010100061a024b53535009181c";
+    std::string hexInput2 = "686974207468652062756c6c277320657965";
 
     int output[hexInput1.length()] = {};
     for (int i = 0; i < hexInput1.length(); i++) {

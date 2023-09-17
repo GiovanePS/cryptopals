@@ -1,41 +1,62 @@
 #include <iostream>
 #include <string.h>
 
-int* singleByteXor(char*, char);
+std::string singleByteXor(std::string, char);
+bool chars_on_range(int);
 
-//input: 1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736
-//LETRA X!
+int main(void) {
+	std::string highScoreString = "";
+	int highScore = -100;
+	int score;
 
-int main(int argc, char* argv[]) {
-	char caractere = 'A';
-	while (caractere <= 'Z') {
-		int* output = singleByteXor(argv[1], caractere);
+	std::string inputString = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
+	
+	unsigned char caractere = 32;
+	while (caractere <= 126) {
+		score = 0;
+		std::string xorString = singleByteXor(inputString, caractere);
 
-		std::cout << "Letra: " << caractere << '\n';
-		for (int i = 0; i < strlen(argv[1])/2; i++) {
-			std::cout << (char)output[i];
+		for (int i = 0; i < xorString.length(); i++) {
+			if (chars_on_range(xorString[i])) {
+				score++;
+			} else {
+				score--;
+			}
 		}
 
-		std::cout << "\n\n";
+		if (score > highScore) {
+			highScoreString = xorString;
+			highScore = score;
+		}
 
-		delete[] output;
+		xorString.clear();
 		caractere++;
 	}
+
+	std::cout << highScoreString << std::endl;
 
 	return 0;
 }
 
-int* singleByteXor(char* input, char byte_ascii) {
+std::string singleByteXor(std::string input, char byte_ascii) {
 
 	std::string strInput = input;
 	char mascara = byte_ascii;
 
-	int* xorChars = new int[strInput.length()/2];
+	std::string xorChars;
 	std::string hexPair;
 	for (int i = 0; i < strInput.length()/2; i++) {
 		hexPair = strInput.substr(i*2, 2);
-		xorChars[i] = std::stoi(hexPair, nullptr, 16) xor mascara;
+		xorChars.append(1, std::stoi(hexPair, nullptr, 16) xor mascara);
 	}
 
 	return xorChars;
+}
+
+bool chars_on_range(int hex) {
+	if (hex == 32 || hex >= 65 && hex <= 90 || hex >= 97 && hex <= 122) {
+		return true;
+	} else {
+		return false;
+	}
 }
