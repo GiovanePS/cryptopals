@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string.h>
 
 std::string singleByteXor(std::string, char);
 bool chars_on_range(int);
