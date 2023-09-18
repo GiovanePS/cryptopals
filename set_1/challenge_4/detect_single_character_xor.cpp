@@ -64,7 +64,7 @@ std::string singleByteXor(std::string input, char byte_ascii) {
 }
 
 bool chars_on_range(int hex) {
-	if (hex == 32 || hex >= 65 && hex <= 90 || hex >= 97 && hex <= 122) {
+	if (hex >= 65 && hex <= 90 || hex >= 97 && hex <= 122 || hex == 32) {
         //Verificando se o caractere é de 'A' a 'Z', de 'a' a 'z' ou se é um espaço.
 		return true;
 	} else {
