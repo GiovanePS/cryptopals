@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "../challenge_3/single_byte_xor_cipher.cpp"
 
 //Keysize is 29, 31 or 32.
@@ -17,16 +18,14 @@ int main(void) {
         hexPairInput[i] = std::stoi(hexPair, nullptr, 16);
     }
 
-    int keysize = 3;
+    int keysize = 29;
     int idx = 0;
     std::string block;
     for (int i = 0; i < keysize; i++) {
         for (int j = 0; j <= keysize; j++) {
-            block += hexPairInput[keysize*j+i];
-            std::cout << block;
+            block.append(std::to_string(hexPairInput[keysize*j+i]));
         }
-        std::cout << std::endl;
-        std::cout << ScoringSingleByteXor(block) << '\n';
+        std::cout << ScoringSingleByteXor(block).first << '\n';
         block.clear();
     }
 

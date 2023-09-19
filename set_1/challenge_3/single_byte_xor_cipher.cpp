@@ -1,3 +1,5 @@
+#include <iostream>
+
 std::string singleByteXor(std::string input, char byte_ascii) {
 
 	std::string strInput = input;
@@ -21,13 +23,14 @@ bool chars_on_range(int hex) {
 	}
 }
 
-std::string ScoringSingleByteXor(std::string inputStr) {
+std::pair<std::string, unsigned char> ScoringSingleByteXor(std::string inputStr) {
 	std::string highScoreString = "";
 	int highScore = -100;
+	int highScoreChar;
 	int score;
 
-	unsigned char caractere = 32;
-	while (caractere <= 126) {
+	unsigned char caractere = 0;
+	while (caractere < 255) {
 		score = 0;
 		std::string xorString = singleByteXor(inputStr, caractere);
 
@@ -42,11 +45,12 @@ std::string ScoringSingleByteXor(std::string inputStr) {
 		if (score > highScore) {
 			highScoreString = xorString;
 			highScore = score;
+			highScoreChar = caractere;
 		}
 
 		xorString.clear();
 		caractere++;
 	}
 
-	return highScoreString;
+	return std::make_pair(highScoreString, highScoreChar);
 }
