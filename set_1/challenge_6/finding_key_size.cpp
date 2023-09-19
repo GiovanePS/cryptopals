@@ -64,6 +64,7 @@ int main(void) {
         keysize++;
     }
 
+    std::cout << "Keysizes com menores distâncias de Hamming normalizadas:\n";
     for (int i = 0; i < 3; i++) {
         std::cout << lowScoresKeys[i] << ": " << lowScoresValues[i] << '\n';
     }
