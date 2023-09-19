@@ -1,7 +1,7 @@
 output: single_byte_xor_cipher.cpp
-	@g++ single_byte_xor_cipher.cpp -o single_byte_xor_cipher.out
-	@./single_byte_xor_cipher.out
+	@g++ main.cpp -o main.out
+	@./main.out
 	
 clean:
 	@echo "Apagando arquivos criados pelo Makefile."
-	@rm single_byte_xor_cipher.out
+	@rm main.out

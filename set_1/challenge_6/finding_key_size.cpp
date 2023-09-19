@@ -9,7 +9,6 @@ int main(void) {
     std::ifstream inputFile("hex.txt");
     std::string hexInput;
     getline(inputFile, hexInput);
-    std::string string;
     std::string hexPair;
     unsigned int hexPairInput[hexInput.length()/2];
     constexpr int BLOCK_LENGTH = 4;
@@ -48,8 +47,6 @@ int main(void) {
 
         distanceHammingAverage /= (float)keysize;
 
-        std::cout << keysize << ": " << distanceHammingAverage << '\n';
-        
         // Operações abaixo necessárias para encontrar de fato os 3 menores valores e evitar erros.
         if (distanceHammingAverage < find_max_value(lowScoresValues[0], lowScoresValues[1], lowScoresValues[2])) {
             if (distanceHammingAverage < lowScoresValues[0]) {

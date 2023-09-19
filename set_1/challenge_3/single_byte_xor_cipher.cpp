@@ -1,42 +1,3 @@
-#include <iostream>
-
-std::string singleByteXor(std::string, char);
-bool chars_on_range(int);
-
-int main(void) {
-	std::string highScoreString = "";
-	int highScore = -100;
-	int score;
-
-	std::string inputString = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
-	
-	unsigned char caractere = 32;
-	while (caractere <= 126) {
-		score = 0;
-		std::string xorString = singleByteXor(inputString, caractere);
-
-		for (int i = 0; i < xorString.length(); i++) {
-			if (chars_on_range(xorString[i])) {
-				score++;
-			} else {
-				score--;
-			}
-		}
-
-		if (score > highScore) {
-			highScoreString = xorString;
-			highScore = score;
-		}
-
-		xorString.clear();
-		caractere++;
-	}
-
-	std::cout << highScoreString << std::endl;
-
-	return 0;
-}
-
 std::string singleByteXor(std::string input, char byte_ascii) {
 
 	std::string strInput = input;
@@ -58,4 +19,34 @@ bool chars_on_range(int hex) {
 	} else {
 		return false;
 	}
+}
+
+std::string ScoringSingleByteXor(std::string inputStr) {
+	std::string highScoreString = "";
+	int highScore = -100;
+	int score;
+
+	unsigned char caractere = 32;
+	while (caractere <= 126) {
+		score = 0;
+		std::string xorString = singleByteXor(inputStr, caractere);
+
+		for (int i = 0; i < xorString.length(); i++) {
+			if (chars_on_range(xorString[i])) {
+				score++;
+			} else {
+				score--;
+			}
+		}
+
+		if (score > highScore) {
+			highScoreString = xorString;
+			highScore = score;
+		}
+
+		xorString.clear();
+		caractere++;
+	}
+
+	return highScoreString;
 }
