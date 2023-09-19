@@ -2,7 +2,7 @@
 #include <fstream>
 
 int hamming_distance(unsigned int, unsigned int);
-double find_min_value(double, double, double);
+double find_max_value(double, double, double);
 
 int main(void) {
 
@@ -23,38 +23,35 @@ int main(void) {
     double distanceHammingAverage;
     double sum;
     int lowScoresKeys[3] = {0};
-    int lowScoresValues[3] = {100, 100, 100}; // Valores que eu considero suficientemente altos.
+    double lowScoresValues[3] = {100, 100, 100}; // Valores que eu considero suficientemente altos.
     int setsMatrix[BLOCK_LENGTH][40]; // 5 blocos de no máximo 40 valores hexadecimais (tamanho da key).
-    int keysize = 3;
+    int keysize = 2;
     int idx;
     int contador;
-    while (keysize != 4) {
+    while (keysize != 40) {
         idx = 0;
-        for (int i = 0; i < BLOCK_LENGTH-1; i++) {
+        for (int i = 0; i < BLOCK_LENGTH; i++) {
             for (int j = 0; j < keysize; j++) {
                 setsMatrix[i][j] = hexPairInput[idx++];
-                std::cout << hexPairInput[idx];
             }
         }
-
-        std::cout << '\n';
 
         distanceHammingAverage = 0;
         for (int i = 0; i < BLOCK_LENGTH-1; i++) {
             sum = 0;
             for (int j = 0; j < keysize; j++) {
                 sum += hamming_distance(setsMatrix[i][j], setsMatrix[i+1][j]);
-                std::cout << hamming_distance(setsMatrix[i][j], setsMatrix[i+1][j]) << '\n';
             }
-            std::cout << "Soma: " << sum << '\n';
             sum /= (float)keysize;
             distanceHammingAverage += sum;
         }
 
         distanceHammingAverage /= (float)keysize;
+
+        std::cout << keysize << ": " << distanceHammingAverage << '\n';
         
         // Operações abaixo necessárias para encontrar de fato os 3 menores valores e evitar erros.
-        if (distanceHammingAverage < find_min_value(lowScoresValues[0], lowScoresValues[1], lowScoresValues[2])) {
+        if (distanceHammingAverage < find_max_value(lowScoresValues[0], lowScoresValues[1], lowScoresValues[2])) {
             if (distanceHammingAverage < lowScoresValues[0]) {
                 lowScoresValues[0] = distanceHammingAverage;
                 lowScoresKeys[0] = keysize;
@@ -91,16 +88,16 @@ int hamming_distance(unsigned int char1, unsigned int char2) {
     return contador;
 }
 
-double find_min_value(double n1, double n2, double n3) {
-    int min = n1;
+double find_max_value(double n1, double n2, double n3) {
+    int max = n1;
 
-    if (n2 < min) {
-        min = n2;
+    if (n2 > max) {
+        max = n2;
     }
 
-    if (n3 < min) {
-        min = n3;
+    if (n3 > max) {
+        max = n3;
     }
 
-    return min;
+    return max;
 }
