@@ -11,7 +11,9 @@ int main(void) {
     std::string hexInput;
     getline(inputFile, hexInput);
     std::string hexPair;
-    unsigned int hexPairInput[hexInput.length()/2];
+    int hexInputLength = hexInput.length()/2;
+    unsigned int hexPairInput[hexInputLength];
+    std::string finalKey;
 
     for (int i = 0; i < hexInput.length()/2; i++) {
         hexPair = hexInput.substr(i*2, 2);
@@ -23,11 +25,16 @@ int main(void) {
     std::string block;
     for (int i = 0; i < keysize; i++) {
         for (int j = 0; j <= keysize; j++) {
-            block.append(std::to_string(hexPairInput[keysize*j+i]));
+            if (keysize*j+i < hexInputLength) {
+                block.append(std::to_string(hexPairInput[keysize*j+i]));
+            }
         }
-        std::cout << ScoringSingleByteXor(block).first << '\n';
+        std::cout << (int)ScoringSingleByteXor(block).second << '\n';
+        finalKey.append(1, ScoringSingleByteXor(block).second);
         block.clear();
     }
+
+    std::cout << finalKey << std::endl;
 
     return 0;
 }

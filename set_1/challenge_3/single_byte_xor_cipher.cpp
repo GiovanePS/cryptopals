@@ -29,8 +29,8 @@ std::pair<std::string, unsigned char> ScoringSingleByteXor(std::string inputStr)
 	int highScoreChar;
 	int score;
 
-	unsigned char caractere = 0;
-	while (caractere < 255) {
+	unsigned char caractere = 32;
+	while (caractere < 127) {
 		score = 0;
 		std::string xorString = singleByteXor(inputStr, caractere);
 
