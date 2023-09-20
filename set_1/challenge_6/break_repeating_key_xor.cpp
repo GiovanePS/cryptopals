@@ -23,22 +23,27 @@ int main(void) {
         strPairInput.append(1, hexPairInput[i]);
     }
 
+    int contador = 0;
+    char hexChar[3];
+
     int keysize = 29;
     int idx = 0;
     std::string block;
     for (int i = 0; i < keysize; i++) {
-        for (int j = 0; j <= keysize; j++) {
-            if (keysize*j+i < hexInputLength) {
-                block.append(std::to_string(hexPairInput[keysize*j+i]));
-            }
+        std::cout << "Bloco " << contador++ << ": " << '\n';
+        for (int j = 0; j < keysize; j++) {
+            sprintf(hexChar, "%02X", hexPairInput[keysize*j+i]);
+            block.append(hexChar);
         }
         finalKey.append(1, ScoringSingleByteXor(block).second);
         block.clear();
     }
 
-    // finalOutput = repeating_key_xor(strPairInput, finalKey);
+    std::cout << finalKey << std::endl;
 
-    // std::cout << finalOutput << std::endl;
+    finalOutput = repeating_key_xor(strPairInput, finalKey);
+
+    std::cout << finalOutput << std::endl;
 
     return 0;
 }
