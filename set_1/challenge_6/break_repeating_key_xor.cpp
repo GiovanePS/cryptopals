@@ -23,14 +23,12 @@ int main(void) {
         strPairInput.append(1, hexPairInput[i]);
     }
 
-    int contador = 0;
     char hexChar[3];
 
     int keysize = 29;
     int idx = 0;
     std::string block;
     for (int i = 0; i < keysize; i++) {
-        std::cout << "Bloco " << contador++ << ": " << '\n';
         for (int j = 0; j < keysize; j++) {
             sprintf(hexChar, "%02X", hexPairInput[keysize*j+i]);
             block.append(hexChar);
@@ -39,7 +37,8 @@ int main(void) {
         block.clear();
     }
 
-    std::cout << finalKey << std::endl;
+    std::cout << finalKey << std::endl; // Tbrminator X: Bring the noise
+    // Provavelmente era pra ser Terminator, mas não encontrei aonde o erro ocorreu.
 
     finalOutput = repeating_key_xor(strPairInput, finalKey);
 
