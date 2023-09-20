@@ -15,12 +15,14 @@ std::string singleByteXor(std::string input, char byte_ascii) {
 	return xorChars;
 }
 
-bool chars_on_range(int hex) {
-	if (hex == 32 || hex >= 65 && hex <= 90 || hex >= 97 && hex <= 122) {
-		return true;
-	} else {
-		return false;
-	}
+int charScores(int hex) {
+	if (hex == 32) { return 2; }
+	if (hex == 'A' || hex == 'a' || hex == 'E' || hex == 'e' || hex == 'O' || hex == 'o' || hex == 'I' || hex == 'i') { return 3; }
+	if (hex == 'T' || hex == 't' || hex == 'N' || hex == 'n' || hex == 'S' || hex == 's' || hex == 'R' || hex == 'r') { return 2; }
+
+	if (hex > 65 && hex <= 90 || hex > 97 && hex <= 122) { return 1; }
+		
+	return 0;
 }
 
 std::pair<std::string, unsigned char> ScoringSingleByteXor(std::string inputStr) {
@@ -35,8 +37,8 @@ std::pair<std::string, unsigned char> ScoringSingleByteXor(std::string inputStr)
 		std::string xorString = singleByteXor(inputStr, caractere);
 
 		for (int i = 0; i < xorString.length(); i++) {
-			if (chars_on_range(xorString[i])) {
-				score++;
+			if (charScores(xorString[i])) {
+				score += charScores(xorString[i]);
 			} else {
 				score--;
 			}

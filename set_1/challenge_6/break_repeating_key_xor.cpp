@@ -25,12 +25,14 @@ int main(void) {
 
     char hexChar[3];
 
+    int contador = 0;
+
     int keysize = 29;
     int idx = 0;
     std::string block;
     for (int i = 0; i < keysize; i++) {
         for (int j = 0; j < keysize; j++) {
-            sprintf(hexChar, "%02X", hexPairInput[keysize*j+i]);
+            sprintf(hexChar, "%02x", hexPairInput[keysize*j+i]);
             block.append(hexChar);
         }
         finalKey.append(1, ScoringSingleByteXor(block).second);
