@@ -1,0 +1,1 @@
+Esse desafio decidi fazer em Go, pois procurei bastante mas não encontrei nenhuma maneira de fazer o decrypt do AES em ECB utilizando apenas a biblioteca padrão do C++. Sequer um passo a passo que me desse um caminho de realizá-lo.
