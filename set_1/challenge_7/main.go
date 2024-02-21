@@ -30,6 +30,6 @@ func main() {
 
 func checkErr(s string, e error) {
 	if e != nil {
-		fmt.Printf("Error %s: %v\n", s, e.Error())
+		fmt.Printf("Error %s: %s\n", s, e.Error())
 	}
 }
