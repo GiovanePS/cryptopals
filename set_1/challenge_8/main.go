@@ -1,9 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"os"
-	"strings"
 )
 
 func main() {
@@ -11,7 +11,7 @@ func main() {
 	checkErr("reading file", err)
 	fmt.Printf("%v\n\n\n", data)
 
-	splitData := strings.Split(string(data), "\n")
+	splitData := bytes.Split(data, []byte("\n"))
 
 	fmt.Println(splitData)
 

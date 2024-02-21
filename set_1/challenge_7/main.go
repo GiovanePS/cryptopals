@@ -21,11 +21,11 @@ func main() {
 	checkErr("create new cipher", err)
 
 	outputData := make([]byte, SizeData)
-	for i := 0; i < SizeData-1088; i += 16 {
+	for i := 0; i < SizeData-1024; i += 16 {
 		block.Decrypt(outputData[i:], base64DecodedData[i:])
 	}
 
-	fmt.Println(string(outputData)[:SizeData-8])
+	fmt.Println(string(outputData))
 }
 
 func checkErr(s string, e error) {
