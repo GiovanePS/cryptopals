@@ -10,20 +10,22 @@ import (
 func main() {
 	data, err := os.ReadFile("./base64.txt")
 	checkErr("opening file", err)
+	SizeData := len(data)
 
-	_, err = base64.StdEncoding.Decode(data, data)
+	base64DecodedData := make([]byte, SizeData)
+	_, err = base64.StdEncoding.Decode(base64DecodedData, data)
 	checkErr("base64 decode", err)
 
-	block, err := aes.NewCipher([]byte("YELLOW SUBMARINE"))
+	Key := []byte("YELLOW SUBMARINE")
+	block, err := aes.NewCipher(Key)
 	checkErr("create new cipher", err)
 
-	SizeData := len(data)
-	dst := make([]byte, SizeData)
-	for i := 0; i < SizeData; i += block.BlockSize() {
-		block.Decrypt(dst, data)
+	outputData := make([]byte, SizeData)
+	for i := 0; i < SizeData-1088; i += 16 {
+		block.Decrypt(outputData[i:], base64DecodedData[i:])
 	}
 
-	fmt.Printf("%s", dst)
+	fmt.Println(string(outputData)[:SizeData-8])
 }
 
 func checkErr(s string, e error) {
