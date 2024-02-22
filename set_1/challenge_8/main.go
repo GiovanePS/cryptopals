@@ -29,12 +29,12 @@ func findECBEncryptedLine(data []byte) int {
 			copy(bytesTested[i:i+16], lineValue[i:i+16])
 			contador = 0
 			for n := 0; n < sizeEachLineData; n += 16 {
+				fmt.Println(string(bytesTested[n:n+16]), string(lineValue[n:n+16]))
 				if reflect.DeepEqual(bytesTested[n:n+16], lineValue[n:n+16]) {
-					fmt.Println(string(bytesTested[n:n+16]), string(lineValue[n:n+16]))
 					contador += 1
 				}
 			}
-			if contador >= 2 {
+			if contador >= 20 {
 				return lineNumber
 			}
 		}
